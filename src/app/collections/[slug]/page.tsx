@@ -9,6 +9,8 @@ type PageProps = {
   params: Promise<{ slug: string }>;
 };
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   const { collections } = await import("@/lib/data/collections");
   return collections.map((collection) => ({ slug: collection.slug }));

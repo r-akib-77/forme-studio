@@ -9,6 +9,8 @@ type PageProps = {
   params: Promise<{ slug: string }>;
 };
 
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return policies.map((policy) => ({ slug: policy.slug }));
 }

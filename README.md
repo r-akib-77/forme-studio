@@ -140,10 +140,24 @@ depict the fictional FORME STUDIO brand.
 
 ## Deployment
 
-The project is configured for **Cloudflare Workers** via the OpenNext adapter. See
-[`wrangler.jsonc`](./wrangler.jsonc) and the Cloudflare section of the deployment notes.
+The storefront is deployed as a **static export on Cloudflare Pages**, connected directly to the
+GitHub repository — every push to `main` triggers a fresh build and deployment.
 
-```bash
-npm run build:cloudflare
-npx wrangler deploy
-```
+- `next.config.ts` switches to `output: "export"` automatically when `CF_PAGES=1` is present
+  (Cloudflare sets this in its build environment) or when `NEXT_OUTPUT=export` is set explicitly.
+  Locally, `npm run build` still produces the standard server build with the image optimiser.
+- `npm run build:static` forces the static export on any machine and writes to `out/`.
+- Cloudflare build settings: build command `npm run build`, output directory `out`.
+
+Because the app has no server components that need a runtime — all data is local, all
+interactivity is client-side — a static export loses nothing.
+
+---
+
+## Notes for a production build
+
+This demo deliberately omits everything a real store needs: authentication, a database, stock
+synchronisation, a payment gateway, server-side validation, transactional email, analytics and a
+CMS. The structure is ready for those to be layered in — the cart already talks to a single
+`CartProvider`, the checkout already produces an order payload shape, and every piece of
+copy that a store owner would want to edit lives in `src/lib/data/site.ts`.
