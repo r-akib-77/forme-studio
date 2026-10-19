@@ -21,9 +21,9 @@ export function SiteHeader() {
           type="button"
           onClick={() => setMobileNavOpen(true)}
           aria-label="Open menu"
-          className="-ml-2 inline-flex h-10 w-10 items-center justify-center text-ink transition-colors hover:bg-bone lg:hidden"
+          className="-ml-2.5 inline-flex h-11 w-11 items-center justify-center text-ink transition-colors hover:bg-bone sm:-ml-2 sm:h-10 sm:w-10 lg:hidden"
         >
-          <Menu className="h-5 w-5" strokeWidth={1.6} aria-hidden="true" />
+          <Menu className="h-[23px] w-[23px] sm:h-5 sm:w-5" strokeWidth={1.6} aria-hidden="true" />
         </button>
 
         <Wordmark className="lg:min-w-[190px]" />
@@ -54,14 +54,18 @@ export function SiteHeader() {
           </ul>
         </nav>
 
-        <div className="ml-auto flex items-center gap-1">
+        <div className="ml-auto flex items-center gap-0.5 sm:gap-1">
           <button
             type="button"
             onClick={() => setSearchOpen(true)}
             aria-label="Search products"
-            className="inline-flex h-10 w-10 items-center justify-center text-ink transition-colors hover:bg-bone"
+            className="inline-flex h-11 w-11 items-center justify-center text-ink transition-colors hover:bg-bone sm:h-10 sm:w-10"
           >
-            <Search className="h-[18px] w-[18px]" strokeWidth={1.7} aria-hidden="true" />
+            <Search
+              className="h-[22px] w-[22px] sm:h-[18px] sm:w-[18px]"
+              strokeWidth={1.7}
+              aria-hidden="true"
+            />
           </button>
 
           <button
@@ -70,9 +74,13 @@ export function SiteHeader() {
             aria-label={`Open shopping bag, ${totals.itemCount} ${
               totals.itemCount === 1 ? "item" : "items"
             }`}
-            className="relative inline-flex h-10 w-10 items-center justify-center text-ink transition-colors hover:bg-bone"
+            className="relative inline-flex h-11 w-11 items-center justify-center text-ink transition-colors hover:bg-bone sm:h-10 sm:w-10"
           >
-            <ShoppingBag className="h-[18px] w-[18px]" strokeWidth={1.7} aria-hidden="true" />
+            <ShoppingBag
+              className="h-[22px] w-[22px] sm:h-[18px] sm:w-[18px]"
+              strokeWidth={1.7}
+              aria-hidden="true"
+            />
             {hydrated && totals.itemCount > 0 ? (
               <span className="absolute right-0.5 top-0.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-lime px-1 text-[0.6rem] font-bold text-ink">
                 {totals.itemCount > 99 ? "99+" : totals.itemCount}

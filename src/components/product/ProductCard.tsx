@@ -110,9 +110,9 @@ export function ProductCard({
                 type="button"
                 onClick={() => quickAdd()}
                 aria-label={`Quick add ${product.name} to bag`}
-                className="flex h-9 w-9 items-center justify-center bg-ink text-paper opacity-100 transition-all duration-300 hover:bg-lime hover:text-ink sm:opacity-0 sm:group-hover:opacity-100 sm:focus-visible:opacity-100"
+                className="flex h-10 w-10 items-center justify-center bg-ink text-paper opacity-100 transition-all duration-300 hover:bg-lime hover:text-ink sm:opacity-0 sm:group-hover:opacity-100 sm:focus-visible:opacity-100"
               >
-                <Plus className="h-4 w-4" aria-hidden="true" />
+                <Plus className="h-[18px] w-[18px]" aria-hidden="true" />
               </button>
             )}
           </div>

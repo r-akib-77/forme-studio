@@ -154,8 +154,59 @@ export function CheckoutForm() {
         payment is taken and no order is created.
       </p>
 
-      <div className="mt-10 grid gap-10 lg:grid-cols-12 lg:gap-14">
-        <form onSubmit={handleSubmit} noValidate className="lg:col-span-7">
+      <div className="mt-10 grid gap-8 lg:grid-cols-12 lg:gap-14">
+        {/* The summary sits above the form on phones so the total is visible
+            before the customer starts typing, and to the right on desktop. */}
+        <aside className="order-1 lg:order-2 lg:col-span-5">
+          <div className="border border-line bg-bone p-5 sm:p-6 lg:sticky lg:top-24">
+            <h2 className="eyebrow mb-4">Order summary</h2>
+            <ul className="divide-y divide-line border-y border-line">
+              {lines.map((line) => (
+                <li key={line.lineId} className="flex items-center gap-3 py-3.5">
+                  <span className="media-frame relative h-16 w-12 shrink-0">
+                    <Image src={line.image} alt="" fill sizes="48px" className="object-cover" />
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span className="block truncate text-sm font-medium text-ink">
+                      {line.name}
+                    </span>
+                    <span className="mt-0.5 block truncate text-[0.66rem] uppercase tracking-[0.1em] text-muted">
+                      {line.color} · {line.size} · Qty {line.quantity}
+                    </span>
+                  </span>
+                  <span className="shrink-0 text-sm font-medium tabular-nums text-ink">
+                    {formatBDT(line.price * line.quantity)}
+                  </span>
+                </li>
+              ))}
+            </ul>
+
+            <dl className="mt-4 space-y-2.5 text-sm">
+              <div className="flex justify-between">
+                <dt className="text-muted">Subtotal</dt>
+                <dd className="font-medium tabular-nums text-ink">
+                  {formatBDT(totals.subtotal)}
+                </dd>
+              </div>
+              <div className="flex justify-between">
+                <dt className="text-muted">Demo delivery</dt>
+                <dd className="font-medium tabular-nums text-ink">
+                  {totals.deliveryFee === 0 ? "Free" : formatBDT(totals.deliveryFee)}
+                </dd>
+              </div>
+              <div className="flex items-baseline justify-between border-t border-line pt-3">
+                <dt className="text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-ink">
+                  Total payable
+                </dt>
+                <dd className="font-display text-xl font-semibold tabular-nums text-ink">
+                  {formatBDT(totals.total)}
+                </dd>
+              </div>
+            </dl>
+          </div>
+        </aside>
+
+        <form onSubmit={handleSubmit} noValidate className="order-2 lg:order-1 lg:col-span-7">
           <section aria-labelledby="contact-heading">
             <h2 id="contact-heading" className="eyebrow mb-5">
               1 — Delivery details
@@ -296,8 +347,14 @@ export function CheckoutForm() {
                           value={method.id}
                           checked={active}
                           onChange={() => setPayment(method.id)}
-                          className="mt-0.5 h-4 w-4 shrink-0 appearance-none rounded-full border border-line-strong bg-paper transition-colors checked:border-ink checked:bg-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+                          className="peer sr-only"
                         />
+                        <span
+                          aria-hidden="true"
+                          className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-line-strong bg-paper transition-colors peer-checked:border-ink peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-ink peer-checked:[&>span]:bg-ink"
+                        >
+                          <span className="h-2.5 w-2.5 rounded-full bg-transparent" />
+                        </span>
                         <span>
                           <span className="block text-sm font-medium text-ink">
                             {method.label}
@@ -331,55 +388,6 @@ export function CheckoutForm() {
             </p>
           </div>
         </form>
-
-        <aside className="lg:col-span-5">
-          <div className="border border-line bg-bone p-6 lg:sticky lg:top-24">
-            <h2 className="eyebrow mb-5">Order summary</h2>
-            <ul className="divide-y divide-line border-y border-line bg-paper px-4">
-              {lines.map((line) => (
-                <li key={line.lineId} className="flex items-center gap-4 py-3.5">
-                  <span className="media-frame relative h-16 w-12 shrink-0">
-                    <Image src={line.image} alt="" fill sizes="48px" className="object-cover" />
-                  </span>
-                  <span className="min-w-0 flex-1">
-                    <span className="block truncate text-sm font-medium text-ink">
-                      {line.name}
-                    </span>
-                    <span className="mt-0.5 block text-[0.68rem] uppercase tracking-[0.12em] text-muted">
-                      {line.color} · Size {line.size} · Qty {line.quantity}
-                    </span>
-                  </span>
-                  <span className="shrink-0 text-sm font-medium tabular-nums text-ink">
-                    {formatBDT(line.price * line.quantity)}
-                  </span>
-                </li>
-              ))}
-            </ul>
-
-            <dl className="mt-5 space-y-2.5 text-sm">
-              <div className="flex justify-between">
-                <dt className="text-muted">Subtotal</dt>
-                <dd className="font-medium tabular-nums text-ink">
-                  {formatBDT(totals.subtotal)}
-                </dd>
-              </div>
-              <div className="flex justify-between">
-                <dt className="text-muted">Demo delivery</dt>
-                <dd className="font-medium tabular-nums text-ink">
-                  {totals.deliveryFee === 0 ? "Free" : formatBDT(totals.deliveryFee)}
-                </dd>
-              </div>
-              <div className="flex items-baseline justify-between border-t border-line pt-3">
-                <dt className="text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-ink">
-                  Total payable
-                </dt>
-                <dd className="font-display text-xl font-semibold tabular-nums text-ink">
-                  {formatBDT(totals.total)}
-                </dd>
-              </div>
-            </dl>
-          </div>
-        </aside>
       </div>
     </div>
   );

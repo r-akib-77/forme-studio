@@ -17,6 +17,8 @@ const height = Number(process.argv[5]);
 const route = process.argv[6];
 const name = process.argv[7] ?? "page";
 const maxSlices = Number(process.argv[8] ?? 6);
+/** Optional: seed the cart before capturing (e.g. "prefill" for checkout). */
+const prefill = process.argv[9] === "prefill";
 
 mkdirSync(outDir, { recursive: true });
 const profile = mkdtempSync(join(tmpdir(), "cf-slices-"));
@@ -83,6 +85,30 @@ await send("Emulation.setDeviceMetricsOverride", {
 
 await send("Page.navigate", { url: base + route });
 await delay(1800);
+
+if (prefill) {
+  await send("Page.navigate", { url: base + "/products/utility-cargo-pants/" });
+  await delay(1800);
+  await send("Runtime.evaluate", {
+    expression: `(async () => {
+      const click = (re) => {
+        const el = [...document.querySelectorAll('button')].find(b => re.test(b.textContent.trim()));
+        if (el) el.click();
+      };
+      click(/^32$/);
+      await new Promise(r => setTimeout(r, 250));
+      click(/add to bag/i);
+      await new Promise(r => setTimeout(r, 600));
+      const other = [...document.querySelectorAll('button')].find(b => /^add to bag$/i.test(b.textContent.trim()));
+      if (other) other.click();
+      await new Promise(r => setTimeout(r, 600));
+      return true;
+    })()`,
+    awaitPromise: true,
+  });
+  await send("Page.navigate", { url: base + route });
+  await delay(2000);
+}
 await send("Runtime.evaluate", {
   expression: `(async () => {
     const step = window.innerHeight;
