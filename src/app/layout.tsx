@@ -65,6 +65,10 @@ export const metadata: Metadata = {
     images: ["/images/editorial/hero.jpg"],
   },
   robots: { index: false, follow: false },
+  icons: {
+    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
+    shortcut: ["/icon.svg"],
+  },
 };
 
 export const viewport: Viewport = {

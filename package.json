@@ -8,8 +8,10 @@
     "build": "next build",
     "build:static": "node scripts/build-export.mjs",
     "start": "next start",
-    "lint": "next lint",
-    "typecheck": "tsc --noEmit"
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "audit:responsive": "node scripts/audit.mjs",
+    "test:flows": "node scripts/interact.mjs"
   },
   "dependencies": {
     "framer-motion": "^12.23.0",
