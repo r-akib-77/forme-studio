@@ -1,0 +1,290 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   FORME STUDIO — Design System
+   Snow-white + warm off-white surfaces, deep charcoal type, restrained
+   electric-lime accent used only for CTAs, sale markers and micro-details.
+   ========================================================================== */
+
+@theme {
+  /* Surfaces */
+  --color-paper: #ffffff;
+  --color-bone: #f7f4ef;
+  --color-sand: #f0ebe2;
+  --color-clay: #e5dfd4;
+
+  /* Ink */
+  --color-ink: #121212;
+  --color-ink-2: #2b2b29;
+  --color-muted: #6c6760;
+  --color-muted-2: #948e85;
+
+  /* Lines */
+  --color-line: #e6e1d8;
+  --color-line-strong: #d2cabb;
+
+  /* Accent — electric lime, used sparingly */
+  --color-lime: #c8f000;
+  --color-lime-deep: #a4cc00;
+  --color-lime-ink: #556d00;
+  --color-lime-wash: #f1f8d6;
+
+  /* Typography */
+  --font-display: var(--font-clash), "Clash Display", "Arial Black", "Helvetica Neue", sans-serif;
+  --font-sans: var(--font-inter), "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Motion */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  :root {
+    --header-height: 60px;
+  }
+
+  * {
+    border-color: var(--color-line);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv02", "cv03", "cv04", "ss01";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.02;
+    text-wrap: balance;
+  }
+
+  ::selection {
+    background: var(--color-lime);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 2px;
+  }
+
+  /* Inputs */
+  input,
+  select,
+  textarea,
+  button {
+    font: inherit;
+    color: inherit;
+  }
+
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    appearance: none;
+    margin: 0;
+  }
+
+  input[type="number"] {
+    appearance: textfield;
+    -moz-appearance: textfield;
+  }
+}
+
+@layer components {
+  /* --- Typography helpers --- */
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  .eyebrow-lime {
+    color: var(--color-lime-ink);
+  }
+
+  .display-xl {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(2.75rem, 9vw, 7.5rem);
+    line-height: 0.92;
+    letter-spacing: -0.035em;
+  }
+
+  .display-lg {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(2rem, 5.2vw, 4rem);
+    line-height: 0.98;
+    letter-spacing: -0.03em;
+  }
+
+  .display-md {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+  }
+
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    transition: background-size 220ms var(--ease-out-soft);
+  }
+
+  .link-underline:hover {
+    background-size: 100% 1px;
+  }
+
+  /* --- Buttons --- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    line-height: 1;
+    padding: 0.95rem 1.6rem;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition:
+      background-color 200ms var(--ease-out-soft),
+      color 200ms var(--ease-out-soft),
+      border-color 200ms var(--ease-out-soft),
+      transform 160ms var(--ease-out-soft);
+  }
+
+  .btn:active {
+    transform: translateY(1px);
+  }
+
+  .btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
+  }
+
+  .btn-ink {
+    background-color: var(--color-ink);
+    color: var(--color-paper);
+  }
+
+  .btn-ink:hover:not(:disabled) {
+    background-color: var(--color-ink-2);
+  }
+
+  .btn-lime {
+    background-color: var(--color-lime);
+    color: var(--color-ink);
+  }
+
+  .btn-lime:hover:not(:disabled) {
+    background-color: var(--color-lime-deep);
+  }
+
+  .btn-outline {
+    background-color: transparent;
+    color: var(--color-ink);
+    border-color: var(--color-line-strong);
+  }
+
+  .btn-outline:hover:not(:disabled) {
+    border-color: var(--color-ink);
+    background-color: var(--color-bone);
+  }
+
+  .btn-ghost {
+    background-color: transparent;
+    color: var(--color-ink);
+    padding: 0.5rem 0.75rem;
+  }
+
+  .btn-ghost:hover:not(:disabled) {
+    background-color: var(--color-bone);
+  }
+
+  /* --- Surfaces --- */
+  .panel {
+    background-color: var(--color-bone);
+  }
+
+  .hairline {
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  /* --- Product media --- */
+  .media-frame {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--color-sand);
+  }
+
+  .media-frame img {
+    transition: transform 700ms var(--ease-out-soft);
+  }
+
+  .group:hover .media-frame img {
+    transform: scale(1.035);
+  }
+
+  /* Scrollbars inside drawers */
+  .scroll-quiet {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-line-strong) transparent;
+  }
+
+  .scroll-quiet::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .scroll-quiet::-webkit-scrollbar-thumb {
+    background: var(--color-line-strong);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .drag-none {
+    -webkit-user-drag: none;
+    user-select: none;
+  }
+}
