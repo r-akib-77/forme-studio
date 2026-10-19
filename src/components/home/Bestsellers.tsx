@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Flame } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 import { ProductCard } from "@/components/product/ProductCard";
 import { Reveal } from "@/components/ui/Reveal";
@@ -32,24 +32,26 @@ export function Bestsellers() {
           />
         </Reveal>
 
-        <div className="mt-10 sm:mt-12">
+        <div className="relative mt-10 sm:mt-12">
           {/* Horizontal rail on small screens, grid from tablet up. */}
-          <ul className="no-scrollbar -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-5 sm:overflow-visible sm:px-0 lg:grid-cols-4">
+          <ul className="no-scrollbar -mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-5 sm:overflow-visible sm:px-0 lg:grid-cols-4">
             {bestsellers.map((product) => (
               <li
                 key={product.id}
-                className="w-[68vw] max-w-[17rem] shrink-0 snap-start sm:w-auto sm:max-w-none"
+                className="w-[70vw] max-w-[16rem] shrink-0 snap-start sm:w-auto sm:max-w-none"
               >
-                <div className="relative">
-                  <span className="mb-3 inline-flex items-center gap-1.5 text-[0.58rem] font-semibold uppercase tracking-[0.18em] text-lime-ink">
-                    <Flame className="h-3 w-3" strokeWidth={1.8} aria-hidden="true" />
-                    Bestseller
-                  </span>
-                  <ProductCard product={product} />
-                </div>
+                <ProductCard product={product} />
               </li>
             ))}
           </ul>
+          {/* Fade the trailing edge so the clipped next card reads as a peek. */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-paper to-transparent sm:hidden"
+          />
+          <p className="mt-3 text-center text-[0.66rem] uppercase tracking-[0.16em] text-muted-2 sm:hidden">
+            Swipe for more →
+          </p>
         </div>
       </div>
     </section>

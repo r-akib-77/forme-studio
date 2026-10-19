@@ -72,14 +72,14 @@ export function ProductCard({
           ) : null}
         </Link>
 
-        <div className="pointer-events-none absolute left-0 top-3 flex flex-col items-start gap-1.5">
+        <div className="pointer-events-none absolute left-0 top-0 flex flex-col items-start gap-1 p-2.5 sm:top-3 sm:left-3 sm:gap-1.5">
           {product.isNew ? <Badge tone="lime">New</Badge> : null}
           {product.bestseller ? <Badge tone="ink">Bestseller</Badge> : null}
           {product.stock === "low-stock" ? (
-            <Badge tone="outline">Only {product.unitsLeft} left</Badge>
+            <Badge tone="paper">Only {product.unitsLeft} left</Badge>
           ) : null}
           {product.stock === "out-of-stock" ? (
-            <Badge tone="muted">Sold out</Badge>
+            <Badge tone="paper">Sold out</Badge>
           ) : null}
         </div>
 

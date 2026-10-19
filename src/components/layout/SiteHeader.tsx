@@ -15,8 +15,8 @@ export function SiteHeader() {
   const { setCartOpen, setSearchOpen, setMobileNavOpen } = useOverlay();
 
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-paper/92 backdrop-blur-md supports-[backdrop-filter]:bg-paper/80">
-      <div className="mx-auto flex h-14 max-w-[1600px] items-center gap-3 px-4 sm:h-16 sm:px-6 lg:px-10">
+    <header className="sticky top-0 z-40 border-b border-line bg-paper">
+      <div className="mx-auto flex h-14 max-w-[1600px] items-center gap-2 px-4 sm:h-16 sm:gap-3 sm:px-6 lg:px-10">
         <button
           type="button"
           onClick={() => setMobileNavOpen(true)}
@@ -27,7 +27,6 @@ export function SiteHeader() {
         </button>
 
         <Wordmark className="lg:min-w-[190px]" />
-
         <nav aria-label="Primary" className="hidden lg:block">
           <ul className="flex items-center gap-7">
             {navCollections.map((item) => {

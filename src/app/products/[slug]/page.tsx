@@ -100,7 +100,7 @@ export default async function ProductPage({ params }: PageProps) {
           </ol>
         </nav>
 
-        <div className="grid gap-10 lg:grid-cols-12 lg:gap-14">
+        <div className="grid gap-8 lg:grid-cols-12 lg:gap-14">
           <div className="lg:col-span-7">
             <ProductGallery
               images={product.images}
@@ -110,7 +110,7 @@ export default async function ProductPage({ params }: PageProps) {
                   {product.isNew ? <Badge tone="lime">New</Badge> : null}
                   {product.bestseller ? <Badge tone="ink">Bestseller</Badge> : null}
                   {product.compareAtPrice ? (
-                    <Badge tone="outline">On offer</Badge>
+                    <Badge tone="paper">On offer</Badge>
                   ) : null}
                 </>
               }
@@ -119,12 +119,12 @@ export default async function ProductPage({ params }: PageProps) {
 
           <div className="lg:col-span-5">
             <div className="lg:sticky lg:top-24">
-              <p className="eyebrow mb-3">
+              <p className="eyebrow mb-2.5">
                 {category?.name ?? "Studio"} · {formatDate(product.createdAt)}
               </p>
               <h1 className="display-md text-ink">{product.name}</h1>
 
-              <div className="mt-7 border-t border-line pt-7">
+              <div className="mt-6 border-t border-line pt-6 sm:mt-7 sm:pt-7">
                 <ProductPurchasePanel product={product} />
               </div>
             </div>

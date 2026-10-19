@@ -16,8 +16,8 @@ export function ProductGallery({
   const [zoom, setZoom] = useState(false);
 
   return (
-    <div className="flex flex-col-reverse gap-4 lg:flex-row lg:gap-5">
-      <ul className="no-scrollbar flex gap-3 overflow-x-auto lg:w-20 lg:flex-col lg:overflow-visible">
+    <div className="flex flex-col-reverse gap-3 lg:flex-row lg:gap-5">
+      <ul className="no-scrollbar -mx-4 flex gap-2.5 overflow-x-auto px-4 sm:mx-0 sm:px-0 lg:w-20 lg:flex-col lg:overflow-visible">
         {images.map((image, index) => (
           <li key={image} className="shrink-0">
             <button
@@ -25,7 +25,7 @@ export function ProductGallery({
               onClick={() => setActive(index)}
               aria-label={`View image ${index + 1} of ${name}`}
               aria-current={active === index}
-              className={`media-frame relative block h-24 w-[74px] border transition-colors lg:h-[92px] lg:w-[74px] ${
+              className={`media-frame relative block h-[104px] w-[80px] border transition-colors sm:h-[110px] sm:w-[84px] lg:h-[92px] lg:w-[74px] ${
                 active === index ? "border-ink" : "border-line hover:border-line-strong"
               }`}
             >
@@ -33,7 +33,7 @@ export function ProductGallery({
                 src={image}
                 alt=""
                 fill
-                sizes="74px"
+                sizes="84px"
                 className="object-cover"
               />
             </button>

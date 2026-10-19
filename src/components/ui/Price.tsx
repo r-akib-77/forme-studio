@@ -42,7 +42,7 @@ export function Badge({
   className = "",
 }: {
   children: ReactNode;
-  tone?: "ink" | "lime" | "outline" | "muted";
+  tone?: "ink" | "lime" | "outline" | "muted" | "paper";
   className?: string;
 }) {
   const tones = {
@@ -50,11 +50,12 @@ export function Badge({
     lime: "bg-lime text-ink",
     outline: "border border-ink/25 text-ink",
     muted: "bg-sand text-ink-2",
+    paper: "bg-paper text-ink",
   }[tone];
 
   return (
     <span
-      className={`inline-flex items-center px-2 py-[3px] text-[0.58rem] font-semibold uppercase tracking-[0.18em] ${tones} ${className}`}
+      className={`inline-flex items-center px-2 py-[3px] text-[0.58rem] font-semibold uppercase tracking-[0.16em] ${tones} ${className}`}
     >
       {children}
     </span>

@@ -147,17 +147,17 @@ export function CatalogView({
         </p>
       </header>
 
-      <div className="mt-9 flex items-center justify-between gap-3 border-y border-line py-3.5">
-        <p className="text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-ink">
+      <div className="mt-8 flex flex-wrap items-center gap-y-3 border-y border-line py-3 lg:py-3.5">
+        <p className="w-full text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-ink lg:w-auto lg:mr-auto">
           {visible.length} {visible.length === 1 ? "piece" : "pieces"}
           {query ? ` for “${query}”` : ""}
         </p>
 
-        <div className="flex items-center gap-2">
+        <div className="flex w-full items-center gap-2 lg:w-auto">
           <button
             type="button"
             onClick={() => setDrawerOpen(true)}
-            className="inline-flex h-10 items-center gap-2 border border-line px-3.5 text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-ink transition-colors hover:border-ink lg:hidden"
+            className="inline-flex h-10 flex-1 items-center justify-center gap-2 border border-line px-3 text-[0.66rem] font-semibold uppercase tracking-[0.12em] text-ink transition-colors hover:border-ink lg:hidden"
           >
             <SlidersHorizontal className="h-3.5 w-3.5" strokeWidth={1.8} aria-hidden="true" />
             Filters

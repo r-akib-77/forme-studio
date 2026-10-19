@@ -16,8 +16,14 @@ export const site = {
 } as const;
 
 export const announcements = [
-  "FREE DELIVERY ON ORDERS OVER ৳2,000",
-  "NEW SEASON — THE EVERYDAY EDIT IS LIVE",
+  {
+    full: "FREE DELIVERY ON ORDERS OVER ৳2,000",
+    short: "FREE DELIVERY OVER ৳2,000",
+  },
+  {
+    full: "NEW SEASON — THE EVERYDAY EDIT IS LIVE",
+    short: "THE EVERYDAY EDIT IS LIVE",
+  },
 ] as const;
 
 export const trustPoints = [

@@ -49,12 +49,14 @@ export function OverlayProvider({ children }: { children: ReactNode }) {
     }, 4200);
   }, []);
 
-  // Lock background scrolling while an overlay is open.
+  // Lock background scrolling while an overlay is open, and clear any toast so
+  // it can never sit on top of a drawer's call to action.
   const anyOpen = cartOpen || searchOpen || mobileNavOpen;
   useEffect(() => {
     if (!anyOpen) return;
     const previous = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    setToasts([]);
     return () => {
       document.body.style.overflow = previous;
     };
@@ -98,7 +100,7 @@ function ToastStack({
 }) {
   return (
     <div
-      className="pointer-events-none fixed inset-x-0 bottom-0 z-[90] flex flex-col items-center gap-2 px-4 pb-5 sm:items-end sm:px-6 sm:pb-6"
+      className="pointer-events-none fixed inset-x-0 bottom-0 z-[95] flex flex-col items-center gap-2 px-4 pb-4 pt-6 sm:items-end sm:px-6 sm:pb-6"
       role="status"
       aria-live="polite"
     >

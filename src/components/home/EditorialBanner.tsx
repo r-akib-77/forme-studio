@@ -64,7 +64,9 @@ export function EditorialBanner() {
                   className="object-cover"
                 />
               </div>
-              <div className="absolute -bottom-4 left-4 bg-ink px-5 py-4 text-paper sm:left-6 sm:bottom-6 sm:px-6 sm:py-5">
+              {/* Caption sits inside the frame on phones, overlapping the edge on
+                  larger screens where there is room for it. */}
+              <div className="absolute bottom-0 left-0 right-0 bg-ink px-4 py-3.5 text-paper sm:-bottom-6 sm:left-6 sm:right-auto sm:px-6 sm:py-5">
                 <p className="text-[0.58rem] font-semibold uppercase tracking-[0.22em] text-lime">
                   Campaign 01
                 </p>

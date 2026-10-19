@@ -29,8 +29,8 @@ export function SiteFooter() {
   return (
     <footer className="border-t border-line bg-bone">
       <div className="mx-auto max-w-[1600px] px-4 py-14 sm:px-6 sm:py-16 lg:px-10">
-        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-12 lg:gap-8">
-          <div className="lg:col-span-4">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-9 sm:gap-x-8 lg:grid-cols-12 lg:gap-8">
+          <div className="col-span-2 lg:col-span-4">
             <div className="flex items-center gap-2.5 text-ink">
               <BrandMark className="h-5 w-5" />
               <span className="flex items-baseline gap-2 leading-none">
