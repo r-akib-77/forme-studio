@@ -383,6 +383,86 @@ const cleared = await evaluate(`(() => {
 })()`);
 check("Cart is cleared after the demo order", /0 items/.test(cleared.label || ""), cleared.label);
 
+// 17. Recently viewed tracks the last product and renders it.
+await go("/products/core-cotton-tee/");
+const recent = await evaluate(`(() => {
+  const t = document.body.innerText;
+  return { hasSection: /recently viewed/i.test(t), hasPrev: /Utility Cargo Pants/.test(t) };
+})()`);
+check(
+  "Recently viewed renders the previously opened product",
+  recent.hasSection === true && recent.hasPrev === true,
+  JSON.stringify(recent),
+);
+
+// 18. Mobile navigation opens, lists collections and closes.
+await send("Emulation.setDeviceMetricsOverride", {
+  width: 390,
+  height: 844,
+  deviceScaleFactor: 1,
+  mobile: true,
+});
+await go("/");
+const mobileNav = await evaluate(`(() => {
+  const menu = [...document.querySelectorAll('button')].find(b => /open menu/i.test(b.getAttribute('aria-label') || ''));
+  if (!menu) return { error: 'no menu button' };
+  menu.click();
+  return new Promise(r => setTimeout(() => {
+    const dlg = document.querySelector('[role="dialog"][aria-label="Site menu"]');
+    if (!dlg) return r({ error: 'no dialog' });
+    const links = [...dlg.querySelectorAll('a')].map(a => (a.getAttribute('href') || '').replace(/\\/$/, ''));
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+    setTimeout(() => r({
+      opened: true,
+      hasCollections: links.some(h => h === '/collections/oversized'),
+      hasCategories: links.some(h => h === '/collections/t-shirts'),
+      closed: !document.querySelector('[role="dialog"]'),
+    }), 500);
+  }, 700));
+})()`);
+check(
+  "Mobile menu opens with navigation and closes on Escape",
+  mobileNav.opened && mobileNav.hasCollections && mobileNav.hasCategories && mobileNav.closed,
+  JSON.stringify(mobileNav),
+);
+
+// 19. The mobile filter drawer opens and applies a filter.
+await go("/shop/");
+const mobileFilters = await evaluate(`(() => {
+  const btn = [...document.querySelectorAll('button')].find(b => /filters/i.test(b.textContent));
+  if (!btn) return { error: 'no filter button' };
+  btn.click();
+  return new Promise(r => setTimeout(() => {
+    const dlg = document.querySelector('[role="dialog"][aria-label="Product filters"]');
+    if (!dlg) return r({ error: 'no filter dialog' });
+    const label = [...dlg.querySelectorAll('label')].find(l => /^Jerseys/i.test(l.innerText.trim()));
+    const box = label && label.querySelector('input[type="checkbox"]');
+    box.click();
+    setTimeout(() => {
+      const apply = [...dlg.querySelectorAll('button')].find(b => /show \\d+ results?/i.test(b.textContent));
+      const txt = apply ? apply.textContent : '';
+      apply && apply.click();
+      setTimeout(() => r({
+        opened: true,
+        applied: /3 results?/i.test(txt),
+        articles: document.querySelectorAll('article').length,
+      }), 600);
+    }, 500);
+  }, 700));
+})()`);
+check(
+  "Mobile filter drawer opens and applies a category filter",
+  mobileFilters.opened && mobileFilters.applied && mobileFilters.articles === 3,
+  JSON.stringify(mobileFilters),
+);
+
+await send("Emulation.setDeviceMetricsOverride", {
+  width: 1440,
+  height: 900,
+  deviceScaleFactor: 1,
+  mobile: false,
+});
+
 const failed = results.filter((r) => !r.pass);
 console.log(`\n${results.length - failed.length}/${results.length} checks passed`);
 socket.close();
